@@ -1,0 +1,8 @@
+<%- include('./partials/header') -%>
+
+<h1>Hello User <%= currentUser.email %> </h1>
+<form action="/logout" method="POST">
+    <button>Logout</button>
+</form>
+
+<%- include('./partials/footer') -%>
