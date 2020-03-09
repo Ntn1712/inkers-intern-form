@@ -1,5 +1,6 @@
 const mongoose = require('mongoose');
 const bcrypt = require('bcrypt');
+const passportLocalMongoose = require('passport-local-mongoose');
 salt_factor = 8;
 
 mongoose.set('useCreateIndex', true);
@@ -9,14 +10,20 @@ var userSchema = new mongoose.Schema({
         type: String,
         unique: true,
         required: true,
-        default: 'inkers'
     },
     password: {
         type: String,
         required: true,
-        default: 'inkers'
+    },
+    resetPasswordToken: {
+        type: String
+    },
+    resetPasswordExpires: {
+        type: Date
     }
 });
+
+// userSchema.plugin(passportLocalMongoose);
 
 userSchema.methods.generateHash = password => {
     return bcrypt.hashSync(password, bcrypt.genSaltSync(salt_factor), null);
