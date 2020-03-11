@@ -218,5 +218,34 @@ router.post('/reset/:token', function (req, res) {
     });
 });
 
+/// after user logged in;
+
+router.get("/user/profile", (req, res, next) => {
+    res.render("profile");
+});
+
+router.get("/user/updatePass", (Req, res, next) => {
+    res.render('updatePass');
+});
+
+router.post("/user/updatePass", async (req, res, next) => {
+    await User.find({
+        _id: req.user._id
+    })
+    .exec()
+    .then(user => {
+        if(!user) console.log('not a user');
+        console.log(user);
+        user[0].password = bcrypt.hashSync(req.body.updatePass, bcrypt.genSaltSync(salt_factor), null);
+        user[0].save();
+        res.redirect('/user/profile');
+    }).catch(err => {
+        console.log(err);
+        next(err);
+    });
+});
+
+
+
 
 module.exports = router;
