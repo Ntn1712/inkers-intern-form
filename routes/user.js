@@ -11,6 +11,7 @@ const crypto = require('crypto');
 const nodemailer = require('nodemailer');
 // const request = require('request-promise');
 const mongoose = require('mongoose');
+const auth = require('../middleware/authentication');
 
 passport.serializeUser((user, done) => done(null, user.id));
 
@@ -41,6 +42,8 @@ passport.use(
                         return done(null, false);
                     }
                     console.log("password correct, success");
+                    user.lastLogin.push(Date(Date.now()).toString());
+                    user.save();
                     return done(null, user);
                 })
                 .catch(err => done(err));
@@ -61,8 +64,7 @@ router.post("/login",
     passport.authenticate("local", {
         successRedirect: "/user",
         failureRedirect: "/login"
-    }), (req, res, next) => {
-    }
+    })
 );
 
 router.get('/register', (req, res) => {
@@ -86,29 +88,13 @@ router.post('/logout', (req, res) => {
     res.redirect("/login");
 });
 
-router.get('/user', (req, res) => {
+router.get('/user', auth.isLoggedIn , (req, res) => {
     res.render('user');
 });
 
 router.get('/forgot', (req, res) => {
     res.render('forget');
 });
-
-// router.post('/forgot', async (req, res, next) => {
-//     await User.find({
-//         email: req.body.email
-//     })
-//     .exec()
-//     .then(user => {
-//         if(!user) console.log("no user exist");
-//         user[0].password = bcrypt.hashSync(req.body.password, bcrypt.genSaltSync(salt_factor), null);
-//         user[0].save();
-//         res.redirect('/login');
-//     }).catch(err => {
-//         console.log(err);
-//         next(err);
-//     });
-// });
 
 router.post('/forgot', function (req, res, next) {
     async.waterfall([
@@ -220,15 +206,15 @@ router.post('/reset/:token', function (req, res) {
 
 /// after user logged in;
 
-router.get("/user/profile", (req, res, next) => {
+router.get("/user/profile", auth.isLoggedIn, (req, res, next) => {
     res.render("profile");
 });
 
-router.get("/user/updatePass", (Req, res, next) => {
+router.get("/user/updatePass", auth.isLoggedIn, (Req, res, next) => {
     res.render('updatePass');
 });
 
-router.post("/user/updatePass", async (req, res, next) => {
+router.post("/user/updatePass", auth.isLoggedIn, async (req, res, next) => {
     await User.find({
         _id: req.user._id
     })
@@ -244,8 +230,5 @@ router.post("/user/updatePass", async (req, res, next) => {
         next(err);
     });
 });
-
-
-
 
 module.exports = router;

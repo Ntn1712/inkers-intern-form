@@ -1,7 +1,13 @@
 <%- include('./partials/header') -%>
 
 <h1><%= currentUser.email %></h1>
+<% currentUser.lastLogin.forEach(function(login){ %>
+    <ul>
+        <li><%= login %></li>
+    </ul>    
+<% }) %>
 <a href="/user/updatePass"><button>Update Password</button></a>
+
 
 
 <%- include('./partials/footer') -%>

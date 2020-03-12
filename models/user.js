@@ -20,7 +20,10 @@ var userSchema = new mongoose.Schema({
     },
     resetPasswordExpires: {
         type: Date
-    }
+    },
+    lastLogin: [{
+        type: String,
+    }]
 });
 
 // userSchema.plugin(passportLocalMongoose);
