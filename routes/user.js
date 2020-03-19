@@ -5,13 +5,15 @@ const userFunction = require('../services/userFunctions');
 const User = require('../models/user');
 const passportStrategy = require('passport-local').Strategy;
 const bcrypt = require("bcrypt");
-salt_factor = 8;
 const async = require('async');
 const crypto = require('crypto');
 const nodemailer = require('nodemailer');
-// const request = require('request-promise');
-const mongoose = require('mongoose');
 const auth = require('../middleware/authentication');
+const multer = require('multer');
+const cloudinary = require('cloudinary');
+const cloudinaryStorage = require('multer-storage-cloudinary');
+salt_factor = 8;
+
 
 passport.serializeUser((user, done) => done(null, user.id));
 
@@ -52,6 +54,23 @@ passport.use(
 );
 
 
+cloudinary.config({
+    cloud_name: 'inkers123',
+    api_key: process.env.CLOUDINARY_API_KEY,
+    api_secret: process.env.CLOUDINARY_API_SECRET
+});
+
+const storage = cloudinaryStorage({
+    cloudinary: cloudinary,
+    allowedFormats: ["jpg", "png"], 
+});
+
+const upload = multer({
+    storage: storage,
+    // fileFilter: fileFilter
+});
+
+
 router.get('/', (req, res) => {
     res.redirect('login');
 });
@@ -83,7 +102,7 @@ router.post('/register', async (req, res, next) => {
         })
 });
 
-router.post('/logout', (req, res) => {
+router.get('/logout', (req, res) => {
     req.logout();
     res.redirect("/login");
 });
@@ -223,12 +242,50 @@ router.post("/user/updatePass", auth.isLoggedIn, async (req, res, next) => {
         if(!user) console.log('not a user');
         console.log(user);
         user[0].password = bcrypt.hashSync(req.body.updatePass, bcrypt.genSaltSync(salt_factor), null);
-        user[0].save();
+        user[0].save().then(user => console.log("updated successfully"));
         res.redirect('/user/profile');
     }).catch(err => {
         console.log(err);
         next(err);
     });
 });
+
+router.post('/user/upload', upload.single('image'), async (req, res, next) => {
+    await User.find({
+        _id: req.user._id
+    })
+    .exec()
+    .then(user => {
+        console.log(user);
+        user[0].image.push(req.file);
+        user[0].save().then(user => {console.log('photo uploaded')});
+        console.log(user);
+        res.redirect('/user');
+    })
+    .catch(err => {
+        console.log(err);
+        next(err);
+    })
+});
+
+// router.post('/user/delete', async (req, res, next) => {
+//     await User.find({
+//         _id: req.user._id
+//     })
+//     .exec()
+//     .then(user => {
+//         console.log(user[0].images.public_id);
+//         cloudinary.uploader.destroy(user[0].image.public_id, () => {
+//             console.log('post deleted from cloudinary');
+//         });
+//         user[0].image.pop(user[0].image.public_id);
+//         res.redirect('/user');
+
+//     })
+//     .catch(err => {
+//         console.log(err);
+//         next(err);
+//     })
+// })
 
 module.exports = router;

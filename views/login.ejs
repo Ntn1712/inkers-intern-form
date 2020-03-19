@@ -1,12 +1,46 @@
 <%- include('./partials/header'); -%>
 
-<form action="/login" method="POST">
-    <input type="text" name="email" placeholder="email" value="inkers">
-    <input type="password" name="password" placeholder="password" value="inkers">
-    <button>Login</button>
-</form>
-<a href="/register">REGISTER</a>
-<a href="/forgot">Forget password</a>
+<!-- <div id="particles-js"></div> -->
+<div id="particles-js">
+    <div class="container">
+        <div class="row">
+            <div class="col-xs-8 col-md-4 col-md-offset-4 col-xs-offset-2">
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <center>
+                            <h3>Login</h3>
+                        </center>
+                    </div>
+                    <div class="panel-body">
+                        <form action="/login" method="POST">
+                            <div class="form-group">
+                                <strong>Email:</strong><br>
+                                <input type="text" class="form-control" name="email" placeholder="Email"
+                                    value="nitindhiman1712@gmail.com">
+                            </div>
+                            <div class="form-group">
+                                <strong>Password:</strong><br>
+                                <input type="password" class="form-control" name="password" placeholder="Password"
+                                    value="dhiman">
+                            </div>
+                            <div class="form-group">
+                                <strong><button type="Submit"
+                                        class="btn btn-primary buttonindex form-control"><b>Login</b></button></strong>
+                            </div>
+                        </form>
+                    </div>
+                    <div class="panel-footer" style="overflow: hidden;">
+                        <p style="float: left;"><a href='/register' style="text-decoration: none">Create a New
+                                Account</a>
+                        </p>
+                        <p style="float: right;"><a href='/forgot' style="text-decoration: none">Forgot Password?</a>
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
 
 
 <%- include('./partials/footer'); -%>

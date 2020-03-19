@@ -1,0 +1,168 @@
+*{
+    margin: 0;
+    padding: 0;
+}
+
+.panel{
+    position: absolute;
+    width: 100%;
+}
+
+.navbar{
+    /* position: relative; */
+    background: rgba(32, 32, 32, 1);
+    border-color: rgba(32, 32, 32, 1);
+}
+
+.navbar-collapse .navbar-nav li a{
+    color: rgba(250,164,26,0.8);
+}
+
+.navbar .navbar-header a{
+    color: rgba(250,164,26,0.8);
+}
+
+body{
+    height: 100%;
+    background-color: white;
+}
+
+.panel{
+    margin-top: 100px;
+    border: none;
+}
+
+
+/* #particle-js{
+    height: 100vh;
+} */
+
+#particles-js{
+    height: 100vh;
+    background: #696868;
+}
+
+main{
+    overflow: hidden;
+    margin-top: 90px;
+    margin-bottom: 100px;
+}
+
+#box{
+    border: 1px solid white;
+    padding: 10px;
+    background-color: #ffffff;
+}
+
+.box{
+    margin-top: 20px;
+    text-align: center;
+    border-radius: 10px;
+    border: 1px solid white;
+    padding: 100px;
+    background-color: #ffffff;
+}
+
+/* .btn-primary{
+    background-color: #00796b;
+} */
+
+/* #banner_image{   
+    text-align: center; 
+    background-position:center;
+    color: #f8f8f8;
+    height: 100%;
+    background: url("https://wallpaperaccess.com/full/825735.jpg") no-repeat center center; 
+    background-size: cover;
+} */
+
+/* #banner_content{
+    position: relative;
+    padding-top: 6%; 
+    padding-bottom: 6%; 
+    margin-top: 15%; 
+    margin-bottom: 47%;  
+    background-color: rgba(0, 0, 0, 0.7);
+} */
+
+.panel > .panel-heading{
+    padding-bottom: 5px;
+    padding-top: 5px;
+    background: rgba(250,164,26,0.8);
+    color: rgba(32, 32, 32, 1);
+}
+
+#plan{ 
+    margin-bottom: 75px;
+    margin-right: 2%;
+    font-size: 50px;
+    float: right; 
+    text-decoration: none;
+    color: #00796b;
+}
+
+/* .button{
+    background-color: white;
+    color: #00796b;
+    border-color: #00796b;
+} */
+
+/* .button:hover{
+    background-color: #00796b;
+    color: white;
+    border-color: #00796b;
+} */
+
+/* .button:focus{
+    background-color: #00796b;
+    color: white;
+    border-color: #00796b;
+} */
+
+/* .button:active{
+    background-color: #00796b;
+    color: white;
+    border-color: #00796b;
+} */
+
+.buttonindex{
+    border: none;
+    background-color: rgba(250,164,26,0.8);
+    color: rgba(32, 32, 32, 1);
+}
+
+.buttonindex:hover{
+    border-color: none;
+    background-color: rgba(32, 32, 32, 1);;
+    color: rgba(250,164,26,0.8);
+}
+
+/* .buttonindex:focus{
+    border-color: #00796b;
+    background-color: #00796b;
+    color: white;
+} */
+
+/* .buttonindex:active{
+    border-color: #00796b;
+    background-color: #00796b;
+    color: white;
+} */
+
+.abovefooter{
+    position: fixed;
+    bottom: 0;
+    padding-top: 10px;
+    padding-left: 10px;
+    padding-right: 10px;
+    width: 100%;
+}
+
+.footer{
+    position: fixed;
+    bottom: 0;
+    padding: 10px;
+    width: 100%;
+    background-color: #101010; 
+    color:#9d9d9d; 
+}

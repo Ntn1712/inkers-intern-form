@@ -23,6 +23,9 @@ var userSchema = new mongoose.Schema({
     },
     lastLogin: [{
         type: String,
+    }],
+    image: [{
+        type: Object
     }]
 });
 

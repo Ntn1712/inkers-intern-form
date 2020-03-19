@@ -1,11 +1,40 @@
 <%- include('./partials/header'); -%>
-
-<form action="/register", method="POST">
-    <input type="text" name="email" placeholder="email of the user">
-    <input type="password" name="password" placeholder="password">
-    <button>Register</button>
-</form>
-<a href="/login">LOGIN</a>
+<div id="particles-js">
+    <div class="container">
+        <div class="row">
+            <div class="col-xs-8 col-md-4 col-md-offset-4 col-xs-offset-2">
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <center>
+                            <h3>Sign Up</h3>
+                        </center>
+                    </div>
+                    <div class="panel-body">
+                        <form action="/register" method="POST">
+                            <div class="form-group">
+                                <strong>Email:</strong><br>
+                                <input type="text" class="form-control" name="email" placeholder="Email">
+                            </div>
+                            <div class="form-group">
+                                <strong>Password:</strong><br>
+                                <input type="password" class="form-control" name="password" placeholder="Password">
+                            </div>
+                            <div class="form-group">
+                                <strong><button type="Submit"
+                                        class="btn btn-primary buttonindex form-control"><b>Register</b></button></strong>
+                            </div>
+                        </form>
+                    </div>
+                    <div class="panel-footer" style="overflow: hidden;">
+                        <p style="float: left;">Already have an Account? <a href='/login'
+                                style="text-decoration: none">Login</a>
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
 
 
 <%- include('./partials/footer'); -%>
