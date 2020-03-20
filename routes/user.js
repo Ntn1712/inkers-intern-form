@@ -182,6 +182,7 @@ router.post('/reset/:token', function (req, res) {
         function (done) {
             User.findOne({ resetPasswordToken: req.params.token, resetPasswordExpires: { $gt: Date.now() } }, function (err, user) {
                 if (!user) {
+                    console.log("Password reset token is invalid or has expired");
                     //req.flash('error', 'Password reset token is invalid or has expired.');
                     return res.redirect('back');
                 }
@@ -191,8 +192,10 @@ router.post('/reset/:token', function (req, res) {
                     user.password = bcrypt.hashSync(req.body.password, bcrypt.genSaltSync(salt_factor), null);
                     user.resetPasswordToken = undefined;
                     user.resetPasswordExpires = undefined;
+                    console.log('updated');
                     user.save().then(err => req.logIn(user, (err) => { done(err, user) }));
                 } else {
+                    console.log("Password do not match");
                     //req.flash("error", "Passwords do not match.");
                     return res.redirect('back');
                 }
@@ -268,24 +271,37 @@ router.post('/user/upload', upload.single('image'), async (req, res, next) => {
     })
 });
 
-// router.post('/user/delete', async (req, res, next) => {
-//     await User.find({
-//         _id: req.user._id
-//     })
-//     .exec()
-//     .then(user => {
-//         console.log(user[0].images.public_id);
-//         cloudinary.uploader.destroy(user[0].image.public_id, () => {
-//             console.log('post deleted from cloudinary');
-//         });
-//         user[0].image.pop(user[0].image.public_id);
-//         res.redirect('/user');
 
-//     })
-//     .catch(err => {
-//         console.log(err);
-//         next(err);
-//     })
-// })
+router.post('/user/delete/:photo_id', async (req, res, next) => {
+    await User.find({
+        _id: req.user._id
+    })
+    .exec()
+    .then(user => {
+        // console.log(user[0]);
+        var images = user[0].image;
+        console.log(images);
+        for(var i=0;i<images.length;i++){
+            console.log(req.params.photo_id);
+            if(images[i].public_id === req.params.photo_id){
+                console.log(images[i]);
+                cloudinary.uploader.destroy(images[i].public_id, () => {
+                    console.log('photo deleted from cloudinary');
+                });
+                function  search(el){
+                    return el === images[i];
+                }
+                user[0].image.splice(images.findIndex(search),1);
+                console.log(user[0]);
+                user[0].save();
+            }
+            res.redirect('/user');
+        }
+    })
+    .catch(err => {
+        console.log(err);
+        next(err);
+    })
+})
 
 module.exports = router;

@@ -1,12 +1,24 @@
 <%- include('./partials/header') -%>
 
-<h1><%= currentUser.email %></h1>
-<% currentUser.lastLogin.forEach(function(login){ %>
-    <ul>
-        <li><%= login %></li>
-    </ul>    
-<% }) %>
-<a href="/user/updatePass"><button>Update Password</button></a>
+<link rel="stylesheet" type="text/css" href="/stylesheets/profle.css">
+
+
+<div class="container">
+    <div class="row" id="login-cont">
+        <div class="col-lg-12 col-md-6">
+            <h2 style="text-decoration: underline"><strong>Login Activity</strong></h2>
+        </div>
+        <div class="col-lg-12 col-md-12">
+            <% currentUser.lastLogin.forEach(function(login){ %>
+            <ul>
+                <li><%= login %></li>
+            </ul>
+            <% }) %>
+            <a href="/user"><button class="btn btn-primary btn-md">Go Back</button></a>
+        </div>
+    </div>
+</div>
+
 
 
 

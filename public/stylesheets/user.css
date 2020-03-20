@@ -1,0 +1,33 @@
+body{
+    padding: 0;
+    margin: 0;
+    background: #b3b3b3;
+}
+
+#user-panel{
+    margin-top: 100px;
+}
+
+h2{
+    margin-bottom: 30px;
+}
+
+p{
+    margin: 10px 0;
+}
+
+.over{
+    overflow: hidden;
+}
+
+.over img{
+    transition: transform 2s;
+}
+
+.over:hover img{
+    transform: scale(1.2);
+}
+
+.img-thumbnail{
+    margin-top: 20px;
+}

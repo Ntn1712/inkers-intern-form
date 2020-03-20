@@ -1,0 +1,9 @@
+body{
+    padding: 0;
+    margin: 0;
+    background: #b3b3b3;
+}
+
+#login-cont{
+    margin-top: 100px;
+}
