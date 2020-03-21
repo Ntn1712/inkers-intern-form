@@ -12,7 +12,7 @@ const passport = require('passport');
 const localStrategy = require('passport-local');
 const userRoutes = require('./routes/user');
 
-mongoose.connect("mongodb://localhost/inkers",
+mongoose.connect( process.env.MONGODB_URI || 'mongodb://localhost/inkers' ,
     { useNewUrlParser: true, useFindAndModify: false, useUnifiedTopology: true}, err => {
         if (!err) console.log("connected Successfully");
     });
