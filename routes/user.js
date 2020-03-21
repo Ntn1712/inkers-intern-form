@@ -302,6 +302,10 @@ router.post('/user/delete/:photo_id', async (req, res, next) => {
         console.log(err);
         next(err);
     })
+});
+
+router.get('/about', (req, res) => {
+    res.render('about');
 })
 
 module.exports = router;
